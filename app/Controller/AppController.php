@@ -20,6 +20,8 @@
  */
 
 App::uses('Controller', 'Controller');
+App::uses('Sanitize', 'Utility');
+App::uses('AuthComponent', 'Controller/Component');
 
 /**
  * Application Controller
@@ -31,4 +33,9 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+	//Specify components, helpers, models
+	var $components = array('Auth', 'Session', 'RequestHandler');
+	var $helpers = array('Html', 'Form', 'Session');
+	var $uses = array('User');
+
 }

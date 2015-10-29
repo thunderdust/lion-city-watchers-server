@@ -1,4 +1,4 @@
-CREATE TABLE `user` (
+CREATE TABLE `users` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`username` VARCHAR(50) NOT NULL,
 	`email` VARCHAR(50) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE `user` (
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB;
 
-CREATE TABLE `report` (
+CREATE TABLE `reports` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`description` VARCHAR(256) NOT NULL,
 	`reported_by` INT(11) NOT NULL,
