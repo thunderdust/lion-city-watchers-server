@@ -23,8 +23,10 @@
 /**
  *  Get CakePHP's root directory
  */
+// The actual directory name for the "app".
 define('APP_DIR', 'app');
 define('DS', DIRECTORY_SEPARATOR);
+// The full path to the directory which holds "app", WITHOUT a trailing DS.
 define('ROOT', dirname(__FILE__));
 define('WEBROOT_DIR', 'webroot');
 define('WWW_ROOT', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS);
