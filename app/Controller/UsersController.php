@@ -15,6 +15,21 @@ class UsersController extends AppController{
 		$this->Auth->allow('add');
 	}
 
+	public function add() {
+        if ($this->request->is('post')) {
+                 
+            $this->User->create();
+            if ($this->User->save($this->request->data)) {
+                $this->Session->setFlash(__('The user has been created'));
+                $this->redirect(array('action' => 'login'));
+            } else {
+                $this->Session->setFlash(__('The user could not be created. Please, try again.'));
+            }   
+        }
+    }
+
+    /*
+
     // Add new user (register)
 	function add(){
 		if ($this->data) {
@@ -24,7 +39,7 @@ class UsersController extends AppController{
 			$data['email'] = Sanitize::clean($this->data['Users']['email'], array('encode' => false, 'escape' => false, 'remove_html' => true));
 			$data['password'] = $this->data['Users']['password'];
 			
-			if ($this->User->isEmailAvailableToRegister($email)){
+			if ($this->User->isEmailAvailableToRegister($data['email'])){
 
 				$this->User->create();
 				$this->User->set($data);
@@ -40,10 +55,44 @@ class UsersController extends AppController{
 			}
 			else {
 				// Email already been registered 
-				$this->Session->setFlash('Email has been registered.', 'default', array('class' => 'error'));
+				echo 'Email has been registered!';
+				return false;
 			}
+			$this->redirect("/users/login");
 		}
 	}
+	*/
+
+	public function login(){
+
+		if($this->Session->check('Auth.User')){
+            $this->redirect(array('action' => 'index'));      
+        }
+
+		if($this->request->is('post')) {
+			$data['username'] = Sanitize::clean($this->data['Users']['username'], array('encode' => false, 'escape' => false, 'remove_html' => true));
+            //$data['password'] = $this->data['Users']['password'];
+
+            if ($this->Auth->login()) { 
+            	echo "Logged in";
+            	$this->redirect(array('action' => 'index')); 
+		    }
+		    else {
+		    	$this->redirect('/login');
+		    	echo "Invalid email or password!";
+		    }
+		}
+	}
+
+    function logout() {
+	    $redirect_url = '/login';
+	    $this->Session->destroy();
+	    $this->redirect($this->Auth->logout());
+    }
+
+    function index(){
+
+    }
 }
 
 

@@ -34,8 +34,27 @@ App::uses('AuthComponent', 'Controller/Component');
  */
 class AppController extends Controller {
 	//Specify components, helpers, models
-	var $components = array('Auth', 'Session', 'RequestHandler');
+	var $components = array(
+		'Flash',
+		'Session',
+		'RequestHandler', 
+		'Auth' => array(
+			'loginRedirect' => array(
+                'controller' => 'main',
+                'action' => 'index'
+            ),
+            'logoutRedirect' => array(
+                'controller' => 'pages',
+                'action' => 'display', 'home'
+            )
+		)
+	);
 	var $helpers = array('Html', 'Form', 'Session');
 	var $uses = array('User');
+
+	// only allow the login controllers only
+	public function beforeFilter() {
+	    $this->Auth->allow('login');
+	}
 
 }
